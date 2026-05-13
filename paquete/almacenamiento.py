@@ -15,9 +15,16 @@ def escribir_json(nombre_archivo,
     escribe (guarda) en el disco un archivo tipo json
     '''
     # se construye una ruta dinámica para que siempre apunte a la carpeta data
-    ruta = os.path.join('data', f'{nombre_archivo}.json')
-    with open(ruta, 'w', encoding='utf-8') as file:
-        return json.dump(argumento, file, ensure_ascii=False, indent=4)
+
+    try:
+        ruta = os.path.join('data', f'{nombre_archivo}.json')
+        with open(ruta, 'w', encoding='utf-8') as file:
+            json.dump(argumento, file, ensure_ascii=False, indent=4)
+            return True
+
+    except FileNotFoundError:
+        print('Error: la carpeta "data" no existe')
+        return False
 
 
 def leer_json(nombre_archivo):
